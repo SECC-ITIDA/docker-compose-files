@@ -1,0 +1,15 @@
+sitewhere:
+  image: aabdulwahed/sitechain:sitewhere-core
+  ports:
+    - "5000:8080"
+    - "5701:5701"
+  links:
+    - mongoserver
+    - mqttserver
+    
+mongoserver:
+  image: aabdulwahed/sitechain:mongo
+
+mqttserver:
+  image: aabdulwahed/sitechain:eclipse-mosquitto
+
