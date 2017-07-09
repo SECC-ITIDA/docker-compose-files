@@ -19,7 +19,8 @@ If you are not familiar with Docker, please find the below link
   * [Get device by hardware id](#Get_device_by_hardware_id)
   * [Get commands of device specification](#Get_commands_of_device_specification)
   * [Send command to a device assignment](#Send_command_to_a_device_assignment)
-
+* [SiteWhere Common Scenarios](#SiteWhere_Common_Scenarios)
+ * [Send command to a device assignment](#Send_command_to_a_device_assignment)
 ## Start SiteWhere Cluster
 <a name="Start_SiteWhere_Cluster"/>
 
@@ -70,7 +71,6 @@ json to access the sitWhere server through REST interface, use the following cur
 **Get sites**
 <a name="Get_site"/>
 
-
 *Sample curl request* 
 ```
 	$ docker run --rm appropriate/curl \
@@ -86,7 +86,6 @@ json to access the sitWhere server through REST interface, use the following cur
 **List device assignments for site**
 <a name="List_device_assignments_for_site"/>
 
-
 *Sample curl request* 
 ```
 	docker run --rm appropriate/curl \
@@ -100,19 +99,69 @@ json to access the sitWhere server through REST interface, use the following cur
 	http://192.168.99.100:5000/sitewhere/api/sites/bb105f8d-3150-41f5-b9d1-db04965668d3/assignments?tenantAuthToken=sitewhere1234567890
 ```
 
-** [Get device by hardware id](#Get_device_by_hardware_id)
-**Get commands of device specification**
-<a name="Get_commands_of_device_specification"/>
-
+**Get device by hardware id**
+<a name="Get_device_by_hardware_id"/>
 
 *Sample curl request* 
 ```
+	docker run --rm appropriate/curl \
+	–H  'Accept: application/json, text/javascript, */*; q=0.01' \
+	-H 'Accept-Language: en-US,en;q=0.8' \
+	-H 'X-Requested-With: XMLHttpRequest' \
+	–H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
+	-H 'Referer: http://192.168.99.100:5000/sitewhere/admin/sites/list.html' \
+	-H 'Accept-Encoding: gzip, deflate, br' \
+	-X GET \
+	http://192.168.99.100:5000/sitewhere/api/devices/2fa14cfd-525f-4beb-bedd-dc296ff7ace7?tenantAuthToken=sitewhere1234567890
+```
+
+**Get commands of device specification**
+<a name="Get_commands_of_device_specification"/>
+
+*Sample curl request* 
+```
+	docker run --rm appropriate/curl \
+	–H  'Accept: application/json, text/javascript, */*; q=0.01' \
+	-H 'Accept-Language: en-US,en;q=0.8' \
+	-H 'X-Requested-With: XMLHttpRequest' \
+	–H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
+	-H 'Referer: http://192.168.99.100:5000/sitewhere/admin/sites/list.html' \
+	-H 'Accept-Encoding: gzip, deflate, br' \
+	-X GET \
+	http://192.168.99.100:5000/sitewhere/api/specifications/82043707-9e3d-441f-bdcc-33cf0f4f7260/commands?tenantAuthToken=sitewhere1234567890
 ```
 **Send command to a device assignment**
 <a name="Send_command_to_a_device_assignment"/>
 
 *Sample curl request* 
 ```
+	docker run --rm appropriate/curl \
+	–H  'Content-Type: application/json' \
+	–H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
+	–H 'X-SiteWhere-Tenant: sitewhere1234567890' \
+	-X POST \
+	–d '{"initiator":"REST",
+	"initiatorId":"admin",
+	"target":"Assignment",
+	"commandToken":"b5268517-4f31-48f3-a5bf-bbb1c99f8467",
+	"status":"Pending",
+	"metadata":{},
+	"parameterValues":{"message":"$$testing command$$"}}' \
+	http://192.168.99.100:5000/sitewhere/api/assignments/09ff7368-3ce0-4d26-bc40-d7c775c1b305/invocations?tenantAuthToken=sitewhere1234567890
 ```
 
+
+## SiteWhere Common Scenarios
+<a name="SiteWhere_Common_Scenarios"/>
+
+**Send command to a device assignment**
+<a name="Send_command_to_a_device_assignment"/>
+
+1- get the assignments in the site
+
+2- get the device dstails to get the specification token
+
+3- get the commands using the specification token 
+
+4- send the command using assignment token id and commandToken
 
