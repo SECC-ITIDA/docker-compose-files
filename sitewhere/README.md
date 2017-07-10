@@ -22,9 +22,12 @@ If you are not familiar with Docker, please find the below link
   * [Get device by hardware id](#Get_device_by_hardware_id)
   * [Get commands of device specification](#Get_commands_of_device_specification)
   * [Send command to a device assignment](#Send_command_to_a_device_assignment)
+  * [Get measurement by assignment token](#Get_measurement_by_assignment_token)
 * [SiteWhere Common Scenarios](#SiteWhere_Common_Scenarios)
   * [Create the devices network](#create_the_devices_network)
   * [Send command to a device assignment](#Send_command_to_a_device_assignment)
+  * [Get measurement from device assignment](#Get_measurement_from_device_assignment)
+  
 ## Start SiteWhere Cluster
 <a name="Start_SiteWhere_Cluster"/>
 
@@ -207,7 +210,23 @@ json to access the sitWhere server through REST interface, use the following cur
 	"parameterValues":{"message":"$$testing command$$"}}' \
 	http://192.168.99.100:5000/sitewhere/api/assignments/09ff7368-3ce0-4d26-bc40-d7c775c1b305/invocations?tenantAuthToken=sitewhere1234567890
 ```
+**Get measurement by assignment token**
+<a name="Get_measurement_by_assignment_token"/>
 
+*Sample curl request* 
+```
+	docker run --rm appropriate/curl \
+	–H  'Accept: application/json, text/javascript, */*; q=0.01' \
+	-H 'Accept-Language: en-US,en;q=0.8' \
+	-H 'X-Requested-With: XMLHttpRequest' \
+	–H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
+	-H 'Referer: http://192.168.99.100:5000/sitewhere/admin/sites/list.html' \
+	-H 'Accept-Encoding: gzip, deflate, br' \
+	-H 'X-SiteWhere-Tenant:sitewhere1234567890' \
+	-X GET \
+	http://192.168.99.100:5000/sitewhere/api/assignments/09ff7368-3ce0-4d26-bc40-d7c775c1b305/measurements?take=100&skip=0&page=1&pageSize=100
+
+```
 
 ## SiteWhere Common Scenarios
 <a name="SiteWhere_Common_Scenarios"/>
@@ -240,3 +259,10 @@ json to access the sitWhere server through REST interface, use the following cur
 
 7- send the command using assignment token id and commandToken
 
+**Get measurement from device assignment**
+<a name="Get_measurement_from_device_assignment"/>
+1- get the assignments in the site
+
+2- parse the return json using the "assetName"
+
+3- get the measurement from the assignmnet 
