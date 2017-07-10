@@ -46,7 +46,7 @@ Finally, check out [http://localhost:5000/sitewhere/admin](http://localhost:5000
 json to access the sitWhere server through REST interface, use the following curl commands.and use http://jsonviewer.stack.hu/ to format the response.
 
 **Create devices specifications**
-<a name="Create_devices_specifications"
+<a name="Create_devices_specifications"/>
 
 *Sample curl request* 
 ```
