@@ -16,7 +16,9 @@ If you are not familiar with Docker, please find the below link
   * [Create devices specifications](#Create_devices_specifications)
   * [Create site](#Create_site)
   * [Create device](#Create_device)
+  * [Create asset](#Create_asset)
   * [Create assignment for devices](#Create_assignment_for_devices)
+  * [Delete assignment for devices](#Delete_assignment_for_devices)
   * [Get sites](#Get_site)
   * [List device assignments for site](#List_device_assignments_for_site)
   * [Get device by hardware id](#Get_device_by_hardware_id)
@@ -26,7 +28,7 @@ If you are not familiar with Docker, please find the below link
 * [SiteWhere Common Scenarios](#SiteWhere_Common_Scenarios)
   * [Create the devices network](#create_the_devices_network)
   * [Send command to a device assignment](#Send_command_to_a_device_assignment)
-  * [Get measurement from device assignment](#Get_measurement_from_device_assignment)
+  * [Get measurement from device assignment](#Get_measurement_from_device_assignment)
   
 ## Start SiteWhere Cluster
 <a name="Start_SiteWhere_Cluster"/>
@@ -111,23 +113,27 @@ json to access the sitWhere server through REST interface, use the following cur
 		"metadata":{}}' \
 	http://192.168.99.100:5000/sitewhere/api/devices
 ```
+**Create asset**
+<a name="Create_device"/>
+
+*Sample curl request* 
+```
+	
+```
+
 **Create assignment for devices**
 <a name="Create_assignment_for_devices"/>
 
 *Sample curl request* 
 ```
-	docker run --rm appropriate/curl \
-	–H  'Content-Type: application/json' \
-	–H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' \
-	–H 'X-SiteWhere-Tenant: sitewhere1234567890' \
-	-X POST \
-	–d ' {
-		"deviceHardwareId":"WiFi-Node 2",
-		"metadata":{},
-		"assignmentType":"Associated",
-		"assetModuleId":"fs-devices",
-		"assetId":"174"}' \
-	http://192.168.99.100:5000/sitewhere/api/assignments
+	
+```
+**Delete assignment for devices**
+<a name="Delete_assignment_for_devices"/>
+
+*Sample curl request* 
+```
+	8237-c2a4f0f47315?force=true" -X DELETE -H "Authorization: Basic YWRtaW46cGFzc3dvcmQ=" -H "Origin: http://192.168.99.100:5000" -H "Accept-Encoding: gzip, deflate" -H "Accept-Language: en-US,en;q=0.8" -H "X-SiteWhere-Tenant: sitewhere1234567890" -H "Content-Type: application/json" -H "Accept: */*" -H "Referer: http://192.168.99.100:5000/sitewhere/admin/default/sites/bfd6c191-194e-401f-be93-6fa4db920968.html?" -H "X-Requested-With: XMLHttpRequest" -H "Cookie: SESSION=e5933159-6927-4974-b342-49d009259d01; i18next=en" -H "Connection: keep-alive" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36" --compressed
 ```
 **Get sites**
 <a name="Get_site"/>
@@ -240,7 +246,9 @@ json to access the sitWhere server through REST interface, use the following cur
 
 3.Create devices that represent a connected physical hardware, which must be configured with certain device specification and site
 
-4.Create new assignment for devices
+4.Create new asset to represent the logical entity that is linked to a device 
+
+5.Create new assignment between the device and the asset (bulldozer associated with a location tracker)
 
 **Send command to a device assignment**
 <a name="Send_command_to_a_device_assignment"/>
@@ -261,6 +269,7 @@ json to access the sitWhere server through REST interface, use the following cur
 
 **Get measurement from device assignment**
 <a name="Get_measurement_from_device_assignment"/>
+
 1- get the assignments in the site
 
 2- parse the return json using the "assetName"
